@@ -1,0 +1,6 @@
+[submodule "client-side/server-side"]
+	path = client-side/server-side
+	url = https://github.com/hamzagh1998/chaty-server-side.git
+[submodule "server-side"]
+	path = server-side
+	url = https://github.com/hamzagh1998/chaty-server-side.git

@@ -65,14 +65,18 @@ export default {
       clearInterval(window.msgInterval) // Stop client from sending messages request to the server
       clearInterval(window.chatInterval) // Clear old interval
       window.chatInterval = setInterval(() => {
-        RequestHandler.getHandler('api/box/chat/'+this.$route.params.chatId,'Bearer ' +this.token)
+        RequestHandler.getHandler('api/box/chat/'+this.$route.params.chatId, 'Bearer ' +this.token)
           .then(data => {
-            this.userData.blockedBy = data.blockedBy // Always update blcokedList
+            this.userData.blockedBy = JSON.parse(JSON.stringify(data.blockedBy)) // Always update blcokedList
             localStorage.setItem('userData', JSON.stringify(this.userData))
             if (this.chatBox.messages.length != data.messages.length) {
               this.chatBox = data
               document.getElementById('top').click() // Scrolling to the bottom
-              this.$store.state.messages.filter(chat => chat.chatId === this.chatBox._id)[0].viewed = true
+              try {
+                this.$store.state.messages.filter(chat => chat.chatId === this.chatBox._id)[0].viewed = true
+              } catch (err) {
+                console.error(err);
+              }
               if (this.chatBox.error) {
                 console.log(this.chatBox.msg)
                 this.$router.push({ name: 'Login' })

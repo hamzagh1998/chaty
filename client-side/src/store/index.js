@@ -43,9 +43,11 @@ export default new Vuex.Store({
           RequestHandler.getHandler('api/box/messages', 'Bearer '+state.token)
             .then(data => {
               if (data) {
-                state.messages = data.messages.reverse() 
-                state.userData.blockedBy = data.blockedBy
-                localStorage.setItem('userData', JSON.stringify(state.userData))
+                if (!data.error) {
+                  state.messages = data.messages.reverse() 
+                  state.userData.blockedBy = data.blockedBy
+                  localStorage.setItem('userData', JSON.stringify(state.userData))
+                }
               }
               state.isLoading = false
             })

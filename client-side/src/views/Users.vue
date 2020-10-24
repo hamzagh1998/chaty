@@ -10,6 +10,7 @@
         @on-send-msg="onSendMsg"
       />
     </div>
+    <p class="p-2 m-2 text-red-600">{{ error }}</p>
   </div>
 </template>
 
@@ -23,7 +24,8 @@ export default {
   name: 'User',
   data() {
     return {
-      users: null
+      users: null,
+      error: null
     }
   },
   computed: {
@@ -46,7 +48,7 @@ export default {
       const res = await RequestHandler.postHandler('api/box/chat', {peerId, message}, 'Bearer '+this.token)
       this.removeLodingStatus()
       if (res.error) {
-        console.log(res.msg)
+        this.error = res.msg
       } else {
         this.$router.push({ name: 'Messages' })
       }

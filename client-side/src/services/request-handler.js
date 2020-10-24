@@ -1,4 +1,4 @@
-const hostname = 'http://127.0.0.1:3000/'
+const hostname = 'https://chaty-11.herokuapp.com/'
 
 export default class RequestHandler {
   static getHandler(uri, token) {

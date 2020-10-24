@@ -58,7 +58,7 @@ export default {
     async loginUser() {
       this.setLoadingStatus()
       // Send request to the server
-      const res = await RequestHandler.postHandler('api/auth/login', {username: this.username, password: this.password})
+      const res = await RequestHandler.postHandler('api/auth/login', {username: this.username.trim().toLowerCase(), password: this.password})
       this.removeLodingStatus()
       res.error ? this.error = res.msg : this.registerToken(res.token)
     },

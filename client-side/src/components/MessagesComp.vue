@@ -3,7 +3,7 @@
     <div :class="[{'bg-primary-light': !chat.viewed}, 'text-left content cursor-pointer hover:bg-primary-light']" 
          @click="$emit('on-chat-box', $event, chat.chatId)">
       <h1 class="p-2 secondary-dark">{{ chat.peerName }}</h1>
-      <p class="p-2">{{ chat.senderName }}: {{ chat.lastMessage.slice(0, 50) }}...</p>
+      <p class="p-2" v-if="chat.lastMessage">{{ chat.senderName }}: {{ chat.lastMessage.slice(0, 50) }}...</p>
       <p class="p-2" 
           v-if="JSON.parse(JSON.stringify(this.userData.blockedBy))
                 .map(obj => obj.id).includes(chat.peerId)">

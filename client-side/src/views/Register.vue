@@ -65,10 +65,11 @@ export default {
       if (this.password === this.confirmPassword && this.password.length >= 5) {
         this.setLoadingStatus()
         // Send request to the server
-        const res = await RequestHandler.postHandler('api/auth/register', {username: this.username, password: this.password})
+        const res = await RequestHandler.postHandler('api/auth/register', {username: this.username.trim().toLowerCase(), password: this.password})
         this.removeLodingStatus()
         res.error ? this.error = res.msg : this.$router.push({ name: 'Login' })
       } else if (this.password.length < 5) {
+        console.log(this.username.trim().toLowerCase());
         this.error = "At least the password must contain 5 characters!"
       } else {
         this.error = "Two password didn't match!"
